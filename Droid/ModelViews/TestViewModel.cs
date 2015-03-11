@@ -1,4 +1,4 @@
-﻿//#define XAMPLUGIN
+﻿#define XAMPLUGIN
 
 using System;
 using System.ComponentModel;
