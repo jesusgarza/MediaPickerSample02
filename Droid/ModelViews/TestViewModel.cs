@@ -1,12 +1,22 @@
-﻿using System;
+﻿//#define XAMPLUGIN
+
+using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using Xamarin.Media;
 using Android.Content;
 using Android.App;
-//using Media.Plugin;
+
+#if XAMPLUGIN
+
+using Media.Plugin;
+
+#else
+
+using Xamarin.Media;
+
+#endif
 
 [assembly: Xamarin.Forms.Dependency (typeof (MediaPickerSample02.Droid.TestViewModel))]
 
@@ -67,36 +77,42 @@ namespace MediaPickerSample02.Droid
 
 		private async Task UseMediaPicker()
 		{
-			//await SelectPicture ();
+			#if XAMPLUGIN
+			await SelectPicture ();
+			#else
 			await SelectPicture2 ();
+			#endif
 
 			return;
 		}
 
-//		/// <summary>
-//		/// Selects the picture.
-//		/// </summary>
-//		/// <returns>Select Picture Task.</returns>
-//		private async Task SelectPicture()
-//		{
-//			try
-//			{
-//				if (!CrossMedia.Current.IsPickPhotoSupported)
-//				{
-//					Debug.WriteLine("IsPickPhotoSupported false");
-//					return;
-//				}
-//
-//				var mediaFile = await CrossMedia.Current.PickPhotoAsync();
-//
-//				Debug.WriteLine("SelectPicture.Path." + mediaFile.Path);
-//
-//			}
-//			catch (System.Exception ex)
-//			{
-//				Debug.WriteLine ("SelectPicture.Exception. " + ex.Message);
-//			}
-//		}
+		#if XAMPLUGIN
+		/// <summary>
+		/// Selects the picture.
+		/// </summary>
+		/// <returns>Select Picture Task.</returns>
+		private async Task SelectPicture()
+		{
+			try
+			{
+				if (!CrossMedia.Current.IsPickPhotoSupported)
+				{
+					Debug.WriteLine("IsPickPhotoSupported false");
+					return;
+				}
+
+				var mediaFile = await CrossMedia.Current.PickPhotoAsync();
+
+				Debug.WriteLine("SelectPicture.Path." + mediaFile.Path);
+
+			}
+			catch (System.Exception ex)
+			{
+				Debug.WriteLine ("SelectPicture.Exception. " + ex.Message);
+			}
+		}
+
+		#else
 
 		/// <summary>
 		/// Selects the picture.
@@ -141,6 +157,7 @@ namespace MediaPickerSample02.Droid
 //				}
 //			}, TaskScheduler.FromCurrentSynchronizationContext());
 		}
+		#endif
 
 		/*************************************************************************************/
 

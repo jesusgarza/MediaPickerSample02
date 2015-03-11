@@ -57,7 +57,7 @@ namespace MediaPickerSample02.iOS
 			get
 			{
 				return _cmdToUseMediaPicker ?? (_cmdToUseMediaPicker = new Command(
-					async (m) => UseMediaPicker(),
+					async (m) => await UseMediaPicker(),
 					(o) => true));
 			}
 		}
@@ -94,6 +94,7 @@ namespace MediaPickerSample02.iOS
 			}
 		}
 
+
 		/*************************************************************************************/
 
 
@@ -105,5 +106,6 @@ namespace MediaPickerSample02.iOS
 					new PropertyChangedEventArgs(propertyName));
 		}
 	}
+
 }
 
